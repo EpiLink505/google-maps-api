@@ -1,11 +1,12 @@
+import { GOOGLE_MAPS_API_DIRECTIONS_URL } from "../../../library/googleMapsAPIUrls";
+
 async function getDistanceHook(origin, destination) {
   const apiKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
-  const url = process.env.REACT_APP_GOOGLE_MAPS_API_DIRECTIONS_URL;
+  const url = GOOGLE_MAPS_API_DIRECTIONS_URL;
+
+  // console.log(origin, destination);
 
   const fullUrl = `http://localhost:8080/${url}?origin=${origin}&destination=${destination}&key=${apiKey}`;
-
-  //?origin=Disneyland&destination=Universal+Studios+Hollywood&key=YOUR_API_KEY
-  // Paragon: Ei04NTU4IFMgMTMwMCBFIHN1aXRlIDEwMSwgU2FuZHksIFVUIDg0MDk0LCBVU0EiJRojChYKFAoSCQHXeoSoYlKHEbQqq90Ig8i3EglzdWl0ZSAxMDE
 
   try {
     const res = await fetch(fullUrl, {
@@ -19,7 +20,7 @@ async function getDistanceHook(origin, destination) {
     }
 
     const resBody = await res.json();
-    if (resBody.routes[0].legs[0])
+    if (resBody?.routes[0]?.legs[0])
       return resBody.routes[0].legs[0].duration.text;
     return false;
   } catch (err) {

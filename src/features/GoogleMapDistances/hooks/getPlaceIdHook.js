@@ -1,9 +1,10 @@
-import formatAddress from "../../../../helpers/formatAddress";
+import formatAddress from "../../../helpers/formatAddress";
+import { GOOGLE_MAPS_API_PLACEID_URL } from "../../../library/googleMapsAPIUrls";
 
 async function getPlaceIdHook(address) {
   const apiKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
-  const url = process.env.REACT_APP_GOOGLE_MAPS_API_PLACEID_URL;
-  const fields = "formatted_address,place_id";
+  const url = GOOGLE_MAPS_API_PLACEID_URL;
+  const fields = "formatted_address,place_id,geometry";
   const formattedAddress = formatAddress(address);
 
   const fullUrl = `http://localhost:8080/${url}?fields=${fields}&input=${formattedAddress}&inputtype=textquery&key=${apiKey}`;
@@ -26,7 +27,8 @@ async function getPlaceIdHook(address) {
 
     if (resBody.candidates[0]) {
       const placeId = `place_id:${resBody.candidates[0].place_id}`;
-      return placeId;
+      const latLng = `${resBody.candidates[0].geometry.location.lat}%2C${resBody.candidates[0].geometry.location.lng}`;
+      return { placeId, latLng };
     }
     return false;
   } catch (err) {

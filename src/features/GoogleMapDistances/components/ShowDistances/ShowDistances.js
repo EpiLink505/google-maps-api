@@ -10,7 +10,7 @@ function ShowDistances(props) {
 
   const rows = elements.map((element) => (
     <tr key={element.name}>
-      <td>{element.location}</td>
+      <td>{element.name}</td>
       <td>{element.address}</td>
       <td>{element.distance}</td>
       <td>{element.frequency}</td>

@@ -8,6 +8,17 @@ import OriginLocationInput from "./components/OriginLocationInput/OriginLocation
 
 import getDistanceHook from "./hooks/getDistanceHook";
 import getPlaceIdHook from "./hooks/getPlaceIdHook";
+import searchNearbyHook from "./hooks/searchNearbyHook";
+import getAddressFromPlaceId from "./hooks/getAddressFromPlaceId";
+
+const elements2 = [
+  {
+    name: "Cupbop - Korean BBQ in a Cup",
+    address: "",
+    distance: "--",
+    frequency: 1,
+  },
+];
 
 function GoogleMapDistances() {
   const [distancesTableObj, setDistancesTableObj] = useState([]);
@@ -16,16 +27,31 @@ function GoogleMapDistances() {
 
   const getDistanceHandler = async () => {
     setIsLoading(true);
-    const originPID = await getPlaceIdHook(input);
+    const origin = await getPlaceIdHook(input);
+    const originPID = origin.placeId;
+    const originLatLng = origin.latLng;
+
+    //718 E Sandy Point Dr, Sandy, UT 84094
+    //4769 Settlers Way, Taylorsville, UT 84123
 
     const tableItems = await Promise.all(
       elements.map(async (loc) => {
-        const curLocPlaceId = await getPlaceIdHook(loc.address);
+        let curLocPlaceId;
+        let curAddress = "";
+        if (!loc.address) {
+          curLocPlaceId = await searchNearbyHook(originLatLng, loc.name);
+          curAddress = await getAddressFromPlaceId(curLocPlaceId);
+        } else {
+          const temp = await getPlaceIdHook(loc.address);
+          curLocPlaceId = temp.placeId;
+        }
         if (!curLocPlaceId) return blankObj;
+
         const distance = await getDistanceHook(originPID, curLocPlaceId);
         if (!distance) return blankObj;
         const item = {
           ...loc,
+          address: curAddress ? curAddress : loc.address,
           distance: distance,
         };
         return item;
@@ -38,7 +64,6 @@ function GoogleMapDistances() {
 
   const submitHandler = (event) => {
     event.preventDefault();
-    console.log(input);
     getDistanceHandler();
   };
 

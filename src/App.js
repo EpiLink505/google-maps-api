@@ -1,8 +1,7 @@
 import logo from "./logo.svg";
 import "./App.css";
 
-import GoogleMapDistances from "./components/features/GoogleMapDistances/GoogleMapDistances";
-import formatAddress from "./helpers/formatAddress";
+import GoogleMapDistances from "./features/GoogleMapDistances/GoogleMapDistances";
 
 function App() {
   return (
