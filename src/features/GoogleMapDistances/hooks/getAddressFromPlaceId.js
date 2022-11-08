@@ -4,13 +4,16 @@ async function getAddressFromPlaceId(placeId) {
   const apiKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
   const url = GOOGLE_MAPS_API_PLACE_URL;
   const fields = "name,formatted_address";
+  let cors = "";
+  if (process.env.REACT_APP_ENVIRONMENT === "local")
+    cors = `http://localhost:8080/`;
 
   let formattedPlaceId = placeId;
   if (formattedPlaceId.includes("place_id:")) {
     formattedPlaceId = formattedPlaceId.replace("place_id:", "");
   }
 
-  const fullUrl = `http://localhost:8080/${url}?fields=${fields}&place_id=${formattedPlaceId}&key=${apiKey}`;
+  const fullUrl = `${cors}${url}?fields=${fields}&place_id=${formattedPlaceId}&key=${apiKey}`;
 
   try {
     const res = await fetch(fullUrl, {

@@ -6,8 +6,11 @@ async function getPlaceIdHook(address) {
   const url = GOOGLE_MAPS_API_PLACEID_URL;
   const fields = "formatted_address,place_id,geometry";
   const formattedAddress = formatAddress(address);
+  let cors = "";
+  if (process.env.REACT_APP_ENVIRONMENT === "local")
+    cors = `http://localhost:8080/`;
 
-  const fullUrl = `http://localhost:8080/${url}?fields=${fields}&input=${formattedAddress}&inputtype=textquery&key=${apiKey}`;
+  const fullUrl = `${cors}${url}?fields=${fields}&input=${formattedAddress}&inputtype=textquery&key=${apiKey}`;
 
   try {
     const res = await fetch(fullUrl, {
