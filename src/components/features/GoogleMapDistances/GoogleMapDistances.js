@@ -1,59 +1,57 @@
 import React, { useState } from "react";
+import styles from "./GoogleMapDistances.module.css";
 
+import { elements, blankObj } from "./locations";
 import GetDistanceBtn from "./components/GetDistanceBtn/GetDistanceBtn";
 import ShowDistances from "./components/ShowDistances/ShowDistances";
+import OriginLocationInput from "./components/OriginLocationInput/OriginLocationInput";
 
 import getDistanceHook from "./hooks/getDistanceHook";
 import getPlaceIdHook from "./hooks/getPlaceIdHook";
 
-const elements = [
-  {
-    name: "Home",
-    location: "Home",
-    address: "4769 Settlers Way, Taylorsville UT 94123",
-    distance: "---",
-  },
-  {
-    name: "Paragon City Gaming",
-    location: "Paragon City Gaming",
-    address: "8558 S 1300 E suite 101, Sandy UT 84094",
-    distance: "--",
-    frequency: 6,
-  },
-  {
-    name: "Greg's House",
-    location: "Greg's House",
-    address: "6072 S 700 W, Murray, UT 84123",
-    distance: "--",
-    frequency: 2,
-  },
-];
-
 function GoogleMapDistances() {
   const [distancesTableObj, setDistancesTableObj] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const origin = "4769 Settlers Way, Taylorsville UT 84123";
+  const [input, setInput] = useState("");
 
   const getDistanceHandler = async () => {
     setIsLoading(true);
-    const originPID = await getPlaceIdHook(origin);
+    const originPID = await getPlaceIdHook(input);
 
-    const tableItems = elements.map(async (loc) => {
-      const curLocPlaceId = await getPlaceIdHook(loc.address);
-      const distance = await getDistanceHook(originPID, curLocPlaceId);
-      const item = {
-        ...loc,
-        distance: distance,
-      };
-      return item;
-    });
+    const tableItems = await Promise.all(
+      elements.map(async (loc) => {
+        const curLocPlaceId = await getPlaceIdHook(loc.address);
+        if (!curLocPlaceId) return blankObj;
+        const distance = await getDistanceHook(originPID, curLocPlaceId);
+        if (!distance) return blankObj;
+        const item = {
+          ...loc,
+          distance: distance,
+        };
+        return item;
+      })
+    );
 
+    setDistancesTableObj(tableItems);
     setIsLoading(false);
+  };
+
+  const submitHandler = (event) => {
+    event.preventDefault();
+    console.log(input);
+    getDistanceHandler();
   };
 
   return (
     <>
-      <GetDistanceBtn getDistance={getDistanceHandler} />
+      <form onSubmit={submitHandler}>
+        <OriginLocationInput
+          input={input}
+          setInput={setInput}
+          className={styles["originLocationInput"]}
+        />
+        <GetDistanceBtn getDistance={getDistanceHandler} />
+      </form>
       <ShowDistances
         origin={origin}
         distancesTableObj={distancesTableObj}

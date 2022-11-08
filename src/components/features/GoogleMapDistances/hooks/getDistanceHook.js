@@ -19,7 +19,9 @@ async function getDistanceHook(origin, destination) {
     }
 
     const resBody = await res.json();
-    return resBody.routes[0].legs[0].duration.text;
+    if (resBody.routes[0].legs[0])
+      return resBody.routes[0].legs[0].duration.text;
+    return false;
   } catch (err) {
     alert(err);
     throw Error(err);

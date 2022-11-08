@@ -1,11 +1,11 @@
 import React from "react";
+import styles from "./ShowDistances.module.css";
 
 import Card from "../../../../UI/Card/Card";
 import { Table } from "@mantine/core";
 import Spinner from "../../../../UI/Spinner/Spinner";
 
 function ShowDistances(props) {
-  console.log("Table Rendered");
   const elements = props.distancesTableObj;
 
   const rows = elements.map((element) => (
@@ -22,10 +22,10 @@ function ShowDistances(props) {
       <Table>
         <thead>
           <tr>
-            <th>Location</th>
-            <th>Address</th>
-            <th>Time to Drive to</th>
-            <th>Frequency</th>
+            <th id={styles.locationHeader}>Location</th>
+            <th id={styles.locationHeader}>Address</th>
+            <th id={styles.locationHeader}>Time to Drive to</th>
+            <th id={styles.locationHeader}>Frequency</th>
           </tr>
         </thead>
         {!props.isLoading && <tbody>{rows}</tbody>}
