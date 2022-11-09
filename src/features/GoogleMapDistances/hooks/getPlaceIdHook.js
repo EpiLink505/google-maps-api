@@ -11,7 +11,7 @@ async function getPlaceIdHook(address) {
     : "";
 
   // const fullUrl = `${cors}${url}?fields=${fields}&input=${formattedAddress}&inputtype=textquery&key=${apiKey}`;
-  const fullUrl = `34.83.160.150:443/${url}?fields=${fields}&input=${formattedAddress}&inputtype=textquery&key=${apiKey}`;
+  const fullUrl = `${url}?fields=${fields}&input=${formattedAddress}&inputtype=textquery&key=${apiKey}`;
 
   try {
     const res = await fetch(fullUrl, {
