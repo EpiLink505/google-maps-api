@@ -3,7 +3,9 @@ import { GOOGLE_MAPS_API_SEARCHNEARBY_URL } from "../../../library/googleMapsAPI
 async function searchNearbyHook(origin, keyword) {
   const apiKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
   const url = GOOGLE_MAPS_API_SEARCHNEARBY_URL;
-  const cors = process.env.REACT_APP_CORS_URL;
+  const cors = process.env.REACT_APP_CORS_URL
+    ? process.env.REACT_APP_CORS_URL
+    : "";
 
   const fullUrl = `${cors}${url}?keyword=${keyword}&location=${origin}&rankby=distance&key=${apiKey}`;
 

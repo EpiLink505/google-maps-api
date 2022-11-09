@@ -6,7 +6,9 @@ async function getPlaceIdHook(address) {
   const url = GOOGLE_MAPS_API_PLACEID_URL;
   const fields = "formatted_address,place_id,geometry";
   const formattedAddress = formatAddress(address);
-  const cors = process.env.REACT_APP_CORS_URL;
+  const cors = process.env.REACT_APP_CORS_URL
+    ? process.env.REACT_APP_CORS_URL
+    : "";
 
   const fullUrl = `${cors}${url}?fields=${fields}&input=${formattedAddress}&inputtype=textquery&key=${apiKey}`;
 
