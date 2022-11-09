@@ -16,7 +16,6 @@ async function getDistanceHook(origin, destination) {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*",
       },
     });
 
