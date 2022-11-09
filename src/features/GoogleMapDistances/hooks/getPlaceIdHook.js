@@ -11,7 +11,7 @@ async function getPlaceIdHook(address) {
     : "";
 
   // const fullUrl = `${cors}${url}?fields=${fields}&input=${formattedAddress}&inputtype=textquery&key=${apiKey}`;
-  const fullUrl = `${url}?fields=${fields}&input=${formattedAddress}&inputtype=textquery&key=${apiKey}`;
+  const fullUrl = `https://distancetorestaurants.netlify.app/${url}?fields=${fields}&input=${formattedAddress}&inputtype=textquery&key=${apiKey}`;
 
   try {
     const res = await fetch(fullUrl, {
