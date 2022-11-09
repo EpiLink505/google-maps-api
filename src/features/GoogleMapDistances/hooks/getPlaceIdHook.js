@@ -17,7 +17,6 @@ async function getPlaceIdHook(address) {
     const res = await fetch(fullUrl, {
       method: "GET",
       headers: {
-        "Content-Type": "application/json",
         "Access-Control-Allow-Origin": "*",
       },
     });
