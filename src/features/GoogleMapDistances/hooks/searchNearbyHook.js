@@ -14,6 +14,7 @@ async function searchNearbyHook(origin, keyword) {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
+        "access-control-allow-origin": "*",
       },
     });
 

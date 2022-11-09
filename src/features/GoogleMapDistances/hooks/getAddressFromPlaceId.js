@@ -20,6 +20,7 @@ async function getAddressFromPlaceId(placeId) {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
+        "access-control-allow-origin": "*",
       },
     });
 

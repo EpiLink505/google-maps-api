@@ -17,6 +17,7 @@ async function getPlaceIdHook(address) {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
+        "access-control-allow-origin": "*",
       },
     });
 
