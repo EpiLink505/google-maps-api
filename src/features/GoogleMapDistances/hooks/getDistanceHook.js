@@ -3,9 +3,7 @@ import { GOOGLE_MAPS_API_DIRECTIONS_URL } from "../../../library/googleMapsAPIUr
 async function getDistanceHook(origin, destination) {
   const apiKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
   const url = GOOGLE_MAPS_API_DIRECTIONS_URL;
-  let cors = "";
-  if (process.env.REACT_APP_ENVIRONMENT === "local")
-    cors = `http://localhost:8080/`;
+  const cors = process.env.REACT_APP_CORS_URL;
 
   // console.log(origin, destination);
 
@@ -16,7 +14,6 @@ async function getDistanceHook(origin, destination) {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        "access-control-allow-origin": "*",
       },
     });
 
