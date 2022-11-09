@@ -14,7 +14,7 @@ async function getAddressFromPlaceId(placeId) {
   }
 
   // const fullUrl = `${cors}${url}?fields=${fields}&place_id=${formattedPlaceId}&key=${apiKey}`;
-  const fullUrl = `/cors-proxy/${url}?fields=${fields}&place_id=${formattedPlaceId}&key=${apiKey}`;
+  const fullUrl = `/${url}?fields=${fields}&place_id=${formattedPlaceId}&key=${apiKey}`;
 
   try {
     const res = await fetch(fullUrl, {
