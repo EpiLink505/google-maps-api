@@ -9,7 +9,6 @@ async function searchNearbyHook(origin, keyword) {
 
   // const fullUrl = `${cors}${url}?keyword=${keyword}&location=${origin}&rankby=distance&key=${apiKey}`;
   const fullUrl = `/cors-proxy/${url}?keyword=${keyword}&location=${origin}&rankby=distance&key=${apiKey}`;
-  console.log(fullUrl);
 
   try {
     const res = await fetch(fullUrl, {
