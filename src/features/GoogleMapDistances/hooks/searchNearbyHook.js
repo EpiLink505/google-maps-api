@@ -8,7 +8,7 @@ async function searchNearbyHook(origin, keyword) {
     : "";
 
   // const fullUrl = `${cors}${url}?keyword=${keyword}&location=${origin}&rankby=distance&key=${apiKey}`;
-  const fullUrl = `/${url}?keyword=${keyword}&location=${origin}&rankby=distance&key=${apiKey}`;
+  const fullUrl = `${url}?keyword=${keyword}&location=${origin}&rankby=distance&key=${apiKey}`;
 
   try {
     const res = await fetch(fullUrl, {
