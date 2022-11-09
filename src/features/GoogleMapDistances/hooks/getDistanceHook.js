@@ -9,7 +9,8 @@ async function getDistanceHook(origin, destination) {
 
   // console.log(origin, destination);
 
-  const fullUrl = `${cors}${url}?origin=${origin}&destination=${destination}&key=${apiKey}`;
+  // const fullUrl = `${cors}${url}?origin=${origin}&destination=${destination}&key=${apiKey}`;
+  const fullUrl = `/cors-proxy/${url}?origin=${origin}&destination=${destination}&key=${apiKey}`;
 
   try {
     const res = await fetch(fullUrl, {

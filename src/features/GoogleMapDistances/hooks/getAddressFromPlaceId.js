@@ -13,7 +13,8 @@ async function getAddressFromPlaceId(placeId) {
     formattedPlaceId = formattedPlaceId.replace("place_id:", "");
   }
 
-  const fullUrl = `${cors}${url}?fields=${fields}&place_id=${formattedPlaceId}&key=${apiKey}`;
+  // const fullUrl = `${cors}${url}?fields=${fields}&place_id=${formattedPlaceId}&key=${apiKey}`;
+  const fullUrl = `/cors-proxy/${url}?fields=${fields}&place_id=${formattedPlaceId}&key=${apiKey}`;
 
   try {
     const res = await fetch(fullUrl, {
